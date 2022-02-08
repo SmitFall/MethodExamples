@@ -1,33 +1,47 @@
 ﻿Option Explicit On
 Option Strict On
+Option Compare Text
 Module MethodExamples
 
     Sub Main()
-        Dim value As Integer
-
-        'Call Sub
-        'AddTwoNumbers()
-        'Console.WriteLine("In main")
-        'Console.WriteLine(result)
-        'Sumof(4, 6)
-        'value = SumResult(7, 7)
-        'value = value + 6
-        'Console.WriteLine(value)
-
-        'SayAMessage()
-        ' For i = 0 To 10
-
-        ' RandomInteger()
-        'Next
-        ' For i = 0 To 10
-        'Console.WriteLine(RandomNumber())
-        'Next
-
-        For i = 0 To 10
-            Console.WriteLine(Runningtotal(5))
-        Next
+        Runningtotal()
 
         Console.ReadLine()
+    End Sub
+
+
+    Sub Runningtotal()
+        Dim userInput As String
+        Dim userNumber As Integer
+        Do
+
+            Console.WriteLine("Type a number")
+            userInput = Console.ReadLine
+            Try
+                userNumber = CInt(userInput)
+
+            Catch ex As Exception
+                Select Case userInput
+                    Case "Q"
+                    Case "C"
+                        Runningtotal(0, True)
+                    Case "s"
+                        Runningtotal(0, False)
+                        Console.WriteLine($"The curent total is {Runningtotal(0, False)}")
+
+                    Case Else
+                        Console.WriteLine("Oops")
+
+                End Select
+                userNumber = 0
+            End Try
+
+            Runningtotal(userNumber, False)
+
+        Loop While userInput <> "Q"
+        Console.WriteLine($"The total is :{Runningtotal(0, False)} ")
+
+
     End Sub
 
     Sub AddTwoNumbers()
@@ -69,11 +83,28 @@ Module MethodExamples
         Return CInt(Rnd() * 15)
 
     End Function
-    Function Runningtotal(value As Integer) As Integer
+    Function Runningtotal(value As Integer, clear As Boolean) As Integer
         Static total As Integer
-        total += value
-        Return Total
+        If clear = False Then
+            total += value
+        Else
+            total = 0
+        End If
+        Return total
 
 
+    End Function
+
+
+    Function count(Optional clear As Boolean = False) As Integer
+        Static runningcount As Integer
+
+        If clear Then
+            runningcount = 0
+        Else
+            runningcount += 1
+        End If
+
+        Return runningcount
     End Function
 End Module
