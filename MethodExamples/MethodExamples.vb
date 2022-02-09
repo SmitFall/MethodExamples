@@ -4,11 +4,19 @@ Option Compare Text
 Module MethodExamples
 
     Sub Main()
-        Runningtotal()
+        Dim someNumber As Integer
 
+        someNumber = 5
+        Console.WriteLine($"in main before call :{someNumber}")
+        ChangeANumber(someNumber)
+        Console.WriteLine($"in main after call :{someNumber}")
         Console.ReadLine()
     End Sub
 
+    Sub ChangeANumber(ByRef firstNumber As Integer)
+        firstNumber = 7
+        Console.WriteLine($"in ChangeANumber after call :{firstNumber}")
+    End Sub
 
     Sub Runningtotal()
         Dim userInput As String
